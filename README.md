@@ -1,0 +1,2 @@
+# trinca
+Aplicativo
