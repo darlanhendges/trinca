@@ -25,7 +25,7 @@ namespace DAB.Generic
         /// Implementa o adicionar
         /// </summary>
         /// <param name="entity"></param>
-        public void Adiciona(T entity)
+        public virtual void Adiciona(T entity)
         {
             Base._context.Entry<T>(entity);
             Base._context.Entry(entity).State = EntityState.Added;

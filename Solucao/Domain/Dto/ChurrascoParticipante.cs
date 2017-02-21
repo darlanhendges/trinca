@@ -33,9 +33,9 @@ namespace DAB.DTO
         public string Nome { get; set; }
 
         /// <summary>
-        /// Obtém ou define ValorContruicao.
+        /// Obtém ou define ValorContribuicao.
         /// </summary>
-        public decimal? ValorContruicao { get; set; }
+        public decimal? ValorContribuicao { get; set; }
 
         /// <summary>
         /// Obtém ou define ComBebida.

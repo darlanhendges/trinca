@@ -13,7 +13,7 @@ namespace DAB.BO.Tests
 
         public int IdChurrasco { get; set; }
         public List<int> Ids { get; set; }
-
+        public decimal Total { get; set; }
 
         [TestInitialize]
         public void Inicializa()
@@ -35,9 +35,12 @@ namespace DAB.BO.Tests
                 Nome = "Darlan Hendges",
                 Pago = true,
                 DataInscricao = DateTime.Now,
-                ValorContruicao = 25.5M,
+                ValorContribuicao = 25.5M,
                 ComBebida = true
             };
+
+            Total += participante1.ValorContribuicao.Value;
+
 
             var participante2 = new DTO.ChurrascoParticipante()
             {
@@ -45,9 +48,11 @@ namespace DAB.BO.Tests
                 Nome = "Erci Hendges",
                 Pago = true,
                 DataInscricao = DateTime.Now,
-                ValorContruicao = 15.5M,
+                ValorContribuicao = 15.5M,
                 ComBebida = false
             };
+
+            Total += participante2.ValorContribuicao.Value;
 
             var participante3 = new DTO.ChurrascoParticipante()
             {
@@ -55,9 +60,11 @@ namespace DAB.BO.Tests
                 Nome = "Evandro Carlos Hendges",
                 Pago = false,
                 DataInscricao = DateTime.Now,
-                ValorContruicao = 0,
+                ValorContribuicao = 0,
                 ComBebida = false
             };
+
+            Total += participante3.ValorContribuicao.Value;
 
             var bo = new BO.ChurrascoParticipante();
 
@@ -73,6 +80,8 @@ namespace DAB.BO.Tests
             Ids.Add(participante1.Id);
             Ids.Add(participante2.Id);
             Ids.Add(participante3.Id);
+
+            ValidaTotal();
         }
 
         [TestCleanup]
@@ -93,6 +102,16 @@ namespace DAB.BO.Tests
                     throw new Exception("Erro, não excluiu o participante!");
                 }
             }
+
+            Total = 0;
+            ValidaTotal();
         }
+
+        public void ValidaTotal()
+        {
+            var churrasco = new BO.Churrasco().BuscaPorID(IdChurrasco);
+            Assert.AreEqual(Total, churrasco.ValorArrecadado);
+        }
+
     }
 }
