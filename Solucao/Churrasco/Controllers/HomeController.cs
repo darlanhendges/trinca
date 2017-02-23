@@ -11,6 +11,12 @@ namespace Churrasco.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            var churrascos = new DAB.BO.Churrasco().Listar.OrderBy(c => c.Quando);
+            return View(churrascos);
+        }
+
+        public ActionResult Create()
+        {
             return View();
         }
     }

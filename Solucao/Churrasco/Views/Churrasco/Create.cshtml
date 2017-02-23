@@ -1,0 +1,121 @@
+﻿@model DAB.DTO.Churrasco
+
+@{
+    ViewBag.Title = "Criando seu Churras";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Churras da Trinca
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="~/Home"><i class="fa fa-dashboard"></i> Home</a>
+        </li>
+
+    </ol>
+</section>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Criar seu churras</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quando, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quando, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quando, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Porque, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Porque, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Porque, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrecoSugeridoSemBebida, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrecoSugeridoSemBebida, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecoSugeridoSemBebida, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrecoSugeridoComBebido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PrecoSugeridoComBebido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecoSugeridoComBebido, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorArrecadado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorArrecadado, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="submit" value="Criar"  class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section scripts{
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$('#Quando').mask('00/00/0000');
+            $('#PrecoSugeridoSemBebida,#PrecoSugeridoComBebido').mask('000.000.000.000.000,00', { reverse: true });
+
+            $('#Criar').click(function () {
+
+                var form = $('#id do section form').closest("form");
+                $.ajax({
+                    type: 'POST',
+                    url: '/Churrasco/Create/',
+                    data: form.serialize(),
+                    success: function (response) {
+                        $('#id do seu alerta').fadeIn();
+
+                        setTimeout(function () {
+                            $('#alertSucesso').fadeOut();
+                        }, 5000);
+
+                    },
+                });
+
+            });
+
+
+
+        });
+
+
+
+
+    </script>
+}
