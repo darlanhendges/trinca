@@ -18,6 +18,11 @@ namespace Churrasco.Controllers
         // GET: Churrasco/Details/5
         public ActionResult Details(int id)
         {
+            if (id == null || id == 0)
+            {
+                RedirectToAction("Index", "Home");
+            }
+
             var churrasco = new DAB.BO.Churrasco().BuscaPorID(id);
 
             if (churrasco == null)
